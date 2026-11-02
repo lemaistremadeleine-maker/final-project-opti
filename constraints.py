@@ -1,8 +1,6 @@
 ##### Imports #####
 import gurobipy as gb
 
-
-
 class CarbonCaptureConstraints:
     def __init__(self, m, params):
         self.m = m
@@ -70,7 +68,6 @@ class CarbonCaptureConstraints:
 
         self.m.setObjective(f1 + f2 + f3 + f4, gb.GRB.MINIMIZE)
         
-
     def pipeline_constraints(self):
         S_pipe = self.vars_["S_pipe"]
         w_pipe = self.vars_["w_pipe"]
@@ -108,7 +105,7 @@ class CarbonCaptureConstraints:
         for i in N:
             for j in N:
                 self.m.addConstr(
-                    gb.quicksum(S_pipe[i,j,t+1] - S_pipe[i,j,t] for t in T if t < max(T)) == gb.quicksum((S_pipe[i,j,t+1] - S_pipe[i,j,t])*(w_pipe[i,j,t+1] - w_pipe[i,j,t]) for t in T if t < max(T)), name="Pipeline capacity increases onmy once"
+                    gb.quicksum(S_pipe[i,j,t+1] - S_pipe[i,j,t] for t in T if t < max(T)) == gb.quicksum(M1*(w_pipe[i,j,t+1] - w_pipe[i,j,t]) for t in T if t < max(T)), name="Pipeline capacity increases onmy once"
                 )
 
         for i in N:
@@ -203,7 +200,7 @@ class CarbonCaptureConstraints:
 
         for i in Ns:
             for t in T:
-                active_site = int(t >= b[i, t])
+                active_site = int(t >= b[i])
                 self.m.addConstr(
                     gb.quicksum(F_truck[j,i,t] + F_rail[j,i,t] + F_pipe[j,i,t] for j in N) <= M2 * active_site ,
                     name=f"Storage site {i} is available or not"

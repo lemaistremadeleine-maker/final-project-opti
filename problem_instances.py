@@ -34,7 +34,7 @@ def small_instance():
     Nt = [int(node[0]) for node in Nt_nodes]
     Ns = [int(node[0]) for node in Ns_nodes]
 
-    Lij = np.zeros(len(nodes), len(nodes))
+    Lij = np.zeros((len(nodes), len(nodes)), dtype="float")
     M1 = 0
     E = {}
     b = {}
@@ -116,5 +116,229 @@ def small_instance():
     }
 
     return params
+
+
+def medium_instance():
+    T = 25
+
+    # node_id, node_type_id, coord_x, coord_y, E or date_available
+    # Types: 0 = capture, 1 = transfer, 2 = storage
+    nodes = np.array([
+        [0,  2, 0,   10, 0],
+        [1,  0, 9,   10, 200],
+        [2,  0, 5,   7,  250],
+        [3,  0, 10,  4,  400],
+        [4,  0, 5,   2,  200],
+        [5,  0, 0,   0,  350],
+        [6,  0, 4.5, 1,  50],
+        [7,  2, 6,   4,  14],
+        [8,  0, 8.5, 0,  65],
+        [9,  0, 2,   6,  90],
+        [10, 0, 7,   8,  45],
+    ])
+
+    N = [int(node[0]) for node in nodes]
+
+    Nc_nodes = [node for node in nodes if int(node[1]) == 0]
+    Nt_nodes = [node for node in nodes if int(node[1]) == 1]
+    Ns_nodes = [node for node in nodes if int(node[1]) == 2]
+
+    Nc = [int(node[0]) for node in Nc_nodes]
+    Nt = [int(node[0]) for node in Nt_nodes]
+    Ns = [int(node[0]) for node in Ns_nodes]
+
+    Lij = np.zeros((len(nodes), len(nodes)), dtype=float)
+    E = {}
+    b = {}
+
+    for node_i in nodes:
+        i = int(node_i[0])
+
+        if int(node_i[1]) == 0:
+            E[i] = node_i[4]
+        if int(node_i[1]) == 2:
+            b[i] = int(node_i[4])
+
+        for node_j in nodes:
+            j = int(node_j[0])
+            Lij[i, j] = np.sqrt(
+                (node_i[2] - node_j[2])**2
+                + (node_i[3] - node_j[3])**2
+            )
+
+    T = np.arange(T)
+
+    # Existing rail connections
+    w_rail = np.array([
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ], dtype=int)
+
+    beta = {
+        "truck": np.array([5, 44]),
+        "rail": np.array([1.6, 31]),
+        "pipe": np.array([0.08, 0]),
+    }
+
+    gamma = {"truck": 0.0007, "rail": 0.0001, "pipe": 0}
+    alpha = np.array([0.0005, 3000])
+
+    # Same assumptions as small_instance()
+    emission_coefficient = 0.90
+    total_emissions = sum(E.values())
+    max_captured = emission_coefficient * total_emissions
+
+    M1 = max_captured
+    M2 = max_captured
+
+    Q_init = 0.0
+    Qt = -0.90 * total_emissions
+
+    params = {
+        "T": T,
+        "N": N,
+        "nodes": nodes,
+        "w_rail": w_rail,
+        "beta": beta,
+        "gamma": gamma,
+        "alpha": alpha,
+        "Nc_nodes": Nc_nodes,
+        "Nt_nodes": Nt_nodes,
+        "Ns_nodes": Ns_nodes,
+        "Nc": Nc,
+        "Nt": Nt,
+        "Ns": Ns,
+        "Lij": Lij,
+        "M1": M1,
+        "M2": M2,
+        "E": E,
+        "b": b,
+        "emission_coefficient": emission_coefficient,
+        "Q_init": Q_init,
+        "Qt": Qt,
+    }
+
+    return params
+
+
+def large_instance():
+    T = 25
+
+    # node_id, node_type_id, coord_x, coord_y, E or date_available
+    # Types: 0 = capture, 1 = transfer, 2 = storage
+    nodes = np.array([
+        [0,  2, 0,   10, 0],
+        [1,  0, 9,   10, 200],
+        [2,  0, 5,   7,  250],
+        [3,  0, 10,  4,  400],
+        [4,  0, 5,   2,  200],
+        [5,  0, 0,   0,  350],
+        [6,  0, 4.5, 1,  50],
+        [7,  2, 6,   4,  14],
+        [8,  0, 8.5, 0,  65],
+        [9,  0, 2,   6,  90],
+        [10, 0, 7,   8,  45],
+        [11, 1, 1,   10, 0],
+        [12, 0, 4,   7,  320],
+        [13, 1, 2,   2,  0],
+        [14, 0, 3,   4,  80],
+        [15, 0, 6,   8,  150],
+        [16, 0, 2,   1,  60],
+        [17, 0, 3,   2,  80],
+    ])
+
+    N = [int(node[0]) for node in nodes]
+
+    Nc_nodes = [node for node in nodes if int(node[1]) == 0]
+    Nt_nodes = [node for node in nodes if int(node[1]) == 1]
+    Ns_nodes = [node for node in nodes if int(node[1]) == 2]
+
+    Nc = [int(node[0]) for node in Nc_nodes]
+    Nt = [int(node[0]) for node in Nt_nodes]
+    Ns = [int(node[0]) for node in Ns_nodes]
+
+    Lij = np.zeros((len(nodes), len(nodes)), dtype=float)
+    E = {}
+    b = {}
+
+    for node_i in nodes:
+        i = int(node_i[0])
+
+        if int(node_i[1]) == 0:
+            E[i] = node_i[4]
+        if int(node_i[1]) == 2:
+            b[i] = int(node_i[4])
+
+        for node_j in nodes:
+            j = int(node_j[0])
+            Lij[i, j] = np.sqrt(
+                (node_i[2] - node_j[2])**2
+                + (node_i[3] - node_j[3])**2
+            )
+
+    T = np.arange(T)
+
+    # Existing rail connections (all other entries are zero)
+    w_rail = np.zeros((len(nodes), len(nodes)), dtype=int)
+
+    for i, j in [(2, 3), (2, 11), (11, 13)]:
+        w_rail[i, j] = 1
+        w_rail[j, i] = 1
+
+    beta = {
+        "truck": np.array([5, 44]),
+        "rail": np.array([1.6, 31]),
+        "pipe": np.array([0.08, 0]),
+    }
+
+    gamma = {"truck": 0.0007, "rail": 0.0001, "pipe": 0}
+    alpha = np.array([0.0005, 3000])
+
+    # Same assumptions as small_instance()
+    emission_coefficient = 0.90
+    total_emissions = sum(E.values())
+    max_captured = emission_coefficient * total_emissions
+
+    M1 = max_captured
+    M2 = max_captured
+
+    Q_init = 0.0
+    Qt = -0.90 * total_emissions
+
+    params = {
+        "T": T,
+        "N": N,
+        "nodes": nodes,
+        "w_rail": w_rail,
+        "beta": beta,
+        "gamma": gamma,
+        "alpha": alpha,
+        "Nc_nodes": Nc_nodes,
+        "Nt_nodes": Nt_nodes,
+        "Ns_nodes": Ns_nodes,
+        "Nc": Nc,
+        "Nt": Nt,
+        "Ns": Ns,
+        "Lij": Lij,
+        "M1": M1,
+        "M2": M2,
+        "E": E,
+        "b": b,
+        "emission_coefficient": emission_coefficient,
+        "Q_init": Q_init,
+        "Qt": Qt,
+    }
+
+    return params
+
 
 
