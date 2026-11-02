@@ -43,7 +43,7 @@ def run_optimisation_model():
     m.optimize()
     
 
-def run_optimisation_model2():
+def run_optimisation_model_2():
     """fonction run pour calcul du pareto front"""
     
 
@@ -61,6 +61,6 @@ def run_optimisation_model2():
     return m, vars_, params
 
 if __name__ == "__main__":
-    run_optimisation_model2()
+    run_optimisation_model_2()
 
 
