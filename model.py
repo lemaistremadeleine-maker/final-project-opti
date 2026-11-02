@@ -44,6 +44,8 @@ def run_optimisation_model():
     
 
 def run_optimisation_model2():
+    """fonction run pour calcul du pareto front"""
+    
 
     model_builder = OptiModel(
         model_name="small_instance",
@@ -59,6 +61,6 @@ def run_optimisation_model2():
     return m, vars_, params
 
 if __name__ == "__main__":
-    run_optimisation_model()
+    run_optimisation_model2()
 
 

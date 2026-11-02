@@ -3,7 +3,7 @@ from constraints_Emin import CarbonCaptureConstraints_Emin
 from problem_instances import small_instance, medium_instance, large_instance
 
 
-class OptiModel:
+class OptiModel_Emin:
     def __init__(self, model_name, TIME_LIMIT):
         self.model_name = model_name
         self.TIME_LIMIT = TIME_LIMIT
@@ -31,23 +31,23 @@ class OptiModel:
         return self.model, self.vars
 
 
-def run_optimisation_model():
+# def run_optimisation_model():
 
-    model_builder = OptiModel(
-        model_name="small_instance",
-        TIME_LIMIT=300
-    )
+#     model_builder = OptiModel(
+#         model_name="small_instance",
+#         TIME_LIMIT=300
+#     )
 
-    m, vars_ = model_builder.build()
+#     m, vars_ = model_builder.build()
 
-    m.optimize()
+#     m.optimize()
     
 
-def run_optimisation_model2():
+def run_optimisation_model_Emin():
     """fonction run pour calcul du pareto front"""
     
 
-    model_builder = OptiModel(
+    model_builder = OptiModel_Emin(
         model_name="small_instance",
         TIME_LIMIT=300
     )
@@ -63,7 +63,7 @@ def run_optimisation_model2():
 # if __name__ == "__main__":
 #     run_optimisation_model()
     
-m,vars_,params = run_optimisation_model2()
+m,vars_,params = run_optimisation_model_Emin()
     
 minE = m.ObjVal
 
