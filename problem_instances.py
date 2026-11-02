@@ -120,6 +120,7 @@ def small_instance():
 
 def medium_instance():
     T = 25
+    # T = 40
 
     # node_id, node_type_id, coord_x, coord_y, E or date_available
     # Types: 0 = capture, 1 = transfer, 2 = storage
@@ -190,7 +191,7 @@ def medium_instance():
     }
 
     gamma = {"truck": 0.0007, "rail": 0.0001, "pipe": 0}
-    alpha = np.array([0.0005, 3000])
+    alpha = np.array([0.00025, 1500])
 
     # Same assumptions as small_instance()
     emission_coefficient = 0.90

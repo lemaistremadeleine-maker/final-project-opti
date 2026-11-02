@@ -13,8 +13,8 @@ class OptiModel:
         self.model_name = model_name
         self.TIME_LIMIT = TIME_LIMIT
         # self.params = small_instance()
-        # self.params = medium_instance()
-        self.params = large_instance()
+        self.params = medium_instance()
+        # self.params = large_instance()
         self.vars = None
         self.model = None
 
@@ -42,7 +42,7 @@ def run_optimisation_model():
 
     model_builder = OptiModel(
         model_name="small_instance",
-        TIME_LIMIT=3000
+        TIME_LIMIT=300
     )
 
     m, vars_ = model_builder.build()
@@ -50,6 +50,7 @@ def run_optimisation_model():
     m.optimize()
     export_flows_csv(m, vars_)
     export_pipeline_and_emissions_csv(m, vars_, model_builder.params)
+    # export_constraints_txt(m, filename="model_constraints.txt")
 
 
 def export_flows_csv(model, vars_, filename="solution_flows.csv", tolerance=1e-6):
@@ -71,9 +72,6 @@ def export_flows_csv(model, vars_, filename="solution_flows.csv", tolerance=1e-6
         writer.writerows(rows)
 
     print(f"Exported {len(rows)} active flows to {filename}")
-
-
-import csv
 
 
 def export_pipeline_and_emissions_csv(
@@ -174,5 +172,61 @@ def export_pipeline_and_emissions_csv(
     print(f"Exported: {pipeline_filename} and {emissions_filename}")
 
 
+def export_constraints_txt(model, filename="model_constraints.txt"):
+    model.update()
+
+    txt_path = Path(filename)
+    lp_path = txt_path.with_suffix(".lp")
+
+    model.write(str(lp_path))
+    lp_path.replace(txt_path)
+
+    print(f"Model exported to {txt_path.resolve()}")
+
+
+def run_multiple_optimisation_runs_for_multiple_alpha(alpha_list):
+    results = []
+
+    for alpha in alpha_list:
+        model_builder = OptiModel(
+            model_name=f"alpha_{alpha[0]}_{alpha[1]}",
+            TIME_LIMIT=300,
+        )
+
+        model_builder.params["alpha"] = list(alpha)
+
+        m, vars_ = model_builder.build()
+        m.optimize()
+        export_flows_csv(m, vars_)
+        export_pipeline_and_emissions_csv(m, vars_, model_builder.params)
+
+        results.append({
+            "alpha": list(alpha),
+            "status": m.Status,
+            "objective": m.ObjVal if m.SolCount > 0 else None,
+            "runtime": m.Runtime,
+            "gap": m.MIPGap if m.SolCount > 0 else None,
+            "nodes": m.NodeCount,
+        })
+
+        m.dispose()
+
+    return results
+
+
+
+
 if __name__ == "__main__":
     run_optimisation_model()
+
+    # alpha_list = [
+    #     [0.00025, 1500],
+    #     [0.0005, 3000],
+    #     [0.00075, 4500],
+    #     [0.001, 6000],
+    # ]
+
+    # results = run_multiple_optimisation_runs_for_multiple_alpha(alpha_list)
+
+    # for result in results:
+    #     print(result)

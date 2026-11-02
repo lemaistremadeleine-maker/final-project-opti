@@ -63,7 +63,7 @@ class CarbonCaptureConstraints:
         )
 
         f4 = gb.quicksum(
-            alpha[0] * S_pipe[i,j,t] + alpha[1] * Lij[i,j] * w_pipe[i,j,t] for i in N for j in N for t in T
+            alpha[0] * S_pipe[i,j,t] + alpha[1] * Lij[i,j] * w_pipe[i,j,t] for i in N for j in N if i<j for t in T
         )
 
         self.m.setObjective(f1 + f2 + f3 + f4, gb.GRB.MINIMIZE)
@@ -104,9 +104,15 @@ class CarbonCaptureConstraints:
 
         for i in N:
             for j in N:
-                self.m.addConstr(
-                    gb.quicksum(S_pipe[i,j,t+1] - S_pipe[i,j,t] for t in T if t < max(T)) == gb.quicksum(M1*(w_pipe[i,j,t+1] - w_pipe[i,j,t]) for t in T if t < max(T)), name="Pipeline capacity increases onmy once"
-                )
+                for t in T:
+                    if t < max(T):
+                        self.m.addConstr(
+                            S_pipe[i, j, t + 1] - S_pipe[i, j, t]
+                            <= M1 * (
+                                w_pipe[i, j, t + 1] - w_pipe[i, j, t]
+                            ),
+                            name=f"Capacity_fixed_after_installation_{i}_{j}_{t}"
+                        )
 
         for i in N:
             for j in N:
