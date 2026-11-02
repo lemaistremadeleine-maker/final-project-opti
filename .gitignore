@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 gurobi.lic
+ed25519 key.txt
+ed25519 key.txt.pub
+ed25519 key.txt
+ed25519 key.txt.pub
