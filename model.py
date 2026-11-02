@@ -43,6 +43,6 @@ def run_optimisation_model():
     m.optimize()
 
 if __name__ == "__main__":
-    run_optimisation_model( )
+    run_optimisation_model()
 
 
