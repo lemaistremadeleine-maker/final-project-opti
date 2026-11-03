@@ -1,0 +1,40 @@
+{'experiment': 'alpha_1', 'instance': 'medium_instance', 'alpha': [0.00025, 1500], 'status': 9, 'objective': 614742.0094211943, 'runtime': 300.64400005340576, 'gap': 0.24016836462851782, 'nodes': 3776.0}
+{'experiment': 'alpha_2', 'instance': 'medium_instance', 'alpha': [0.0005, 3000], 'status': 9, 'objective': 945134.0036392588, 'runtime': 300.9099998474121, 'gap': 0.05730939757772936, 'nodes': 3091.0}
+{'experiment': 'alpha_3', 'instance': 'medium_instance', 'alpha': [0.00075, 4500], 'status': 9, 'objective': 1133747.2191705736, 'runtime': 300.4060001373291, 'gap': 0.06706692339921352, 'nodes': 441.0}
+{'experiment': 'alpha_4', 'instance': 'medium_instance', 'alpha': [0.001, 6000], 'status': 2, 'objective': 1242294.4159552217, 'runtime': 200.27300000190735, 'gap': 0.0, 'nodes': 10794.0}
+{'experiment': 'beta_truck_1', 'instance': 'medium_instance', 'transport': 'truck', 'factor': 0.5, 'beta': [2.5, 22.0], 'status': 2, 'objective': 692737.1852784118, 'runtime': 192.53800010681152, 'gap': 1.6805120946430408e-16, 'nodes': 7330.0}
+{'experiment': 'beta_truck_2', 'instance': 'medium_instance', 'transport': 'truck', 'factor': 1.0, 'beta': [5.0, 44.0], 'status': 9, 'objective': 947646.783160505, 'runtime': 300.3680000305176, 'gap': 0.1376511240901119, 'nodes': 479.0}
+{'experiment': 'beta_truck_3', 'instance': 'medium_instance', 'transport': 'truck', 'factor': 1.5, 'beta': [7.5, 66.0], 'status': 9, 'objective': 1019575.6508795836, 'runtime': 300.32599997520447, 'gap': 0.13976351125556427, 'nodes': 2358.0}
+{'experiment': 'beta_rail_1', 'instance': 'medium_instance', 'transport': 'rail', 'factor': 0.5, 'beta': [0.8, 15.5], 'status': 9, 'objective': 756512.9287304669, 'runtime': 300.1419999599457, 'gap': 0.04571606806993788, 'nodes': 5671.0}
+{'experiment': 'beta_rail_2', 'instance': 'medium_instance', 'transport': 'rail', 'factor': 1.0, 'beta': [1.6, 31.0], 'status': 9, 'objective': 945133.0136392587, 'runtime': 300.2569999694824, 'gap': 0.026776855676770184, 'nodes': 9008.0}
+{'experiment': 'beta_rail_3', 'instance': 'medium_instance', 'transport': 'rail', 'factor': 1.5, 'beta': [2.4000000000000004, 46.5], 'status': 9, 'objective': 1012244.3315263633, 'runtime': 300.6170001029968, 'gap': 0.06990313555788628, 'nodes': 5442.0}
+{'experiment': 'beta_pipe_1', 'instance': 'medium_instance', 'transport': 'pipe', 'factor': 0.5, 'beta': [0.04, 0.0], 'status': 9, 'objective': 948168.5058766169, 'runtime': 300.22500014305115, 'gap': 0.17528918214456518, 'nodes': 625.0}
+{'experiment': 'beta_pipe_2', 'instance': 'medium_instance', 'transport': 'pipe', 'factor': 1.0, 'beta': [0.08, 0.0], 'status': 9, 'objective': 945133.0136392587, 'runtime': 300.14599990844727, 'gap': 0.026776855676770184, 'nodes': 8491.0}
+{'experiment': 'beta_pipe_3', 'instance': 'medium_instance', 'transport': 'pipe', 'factor': 1.5, 'beta': [0.12, 0.0], 'status': 9, 'objective': 947266.4046501401, 'runtime': 300.135999917984, 'gap': 0.032297402615252144, 'nodes': 5766.0}
+{'experiment': 'Qt_1', 'instance': 'medium_instance', 'reduction': 0.9, 'Qt': np.float64(-1485.0), 'status': 9, 'objective': 945133.0136392587, 'runtime': 300.34099984169006, 'gap': 0.026776855676770184, 'nodes': 9011.0}
+{'experiment': 'Qt_2', 'instance': 'medium_instance', 'reduction': 0.8, 'Qt': np.float64(-1320.0), 'status': 9, 'objective': 808532.948516999, 'runtime': 300.1380000114441, 'gap': 0.0810400609350374, 'nodes': 5328.0}
+{'experiment': 'Qt_3', 'instance': 'medium_instance', 'reduction': 0.7, 'Qt': np.float64(-1155.0), 'status': 9, 'objective': 688323.609347837, 'runtime': 300.48099994659424, 'gap': 0.04672418320234626, 'nodes': 5320.0}
+{'experiment': 'Qt_4', 'instance': 'medium_instance', 'reduction': 0.6, 'Qt': np.float64(-990.0), 'status': 9, 'objective': 577350.85135249, 'runtime': 300.39599990844727, 'gap': 0.08319679626669972, 'nodes': 563.0}
+{'experiment': 'Qt_5', 'instance': 'medium_instance', 'reduction': 0.5, 'Qt': np.float64(-825.0), 'status': 2, 'objective': 461039.7252124179, 'runtime': 114.79200005531311, 'gap': 0.0, 'nodes': 1669.0}
+
+
+
+{'experiment': 'alpha_1', 'instance': 'medium_instance', 'alpha': [0.00025, 1500], 'status': 9, 'objective': 480910.36652813206, 'runtime': 200.31699991226196, 'gap': 0.3095010740270922, 'nodes': 2869.0}
+{'experiment': 'alpha_2', 'instance': 'medium_instance', 'alpha': [0.0005, 3000], 'status': 9, 'objective': 688323.609347837, 'runtime': 200.26799988746643, 'gap': 0.04672418320234626, 'nodes': 4694.0}
+{'experiment': 'alpha_3', 'instance': 'medium_instance', 'alpha': [0.00075, 4500], 'status': 2, 'objective': 806642.6749817601, 'runtime': 125.37299990653992, 'gap': 0.0,'nodes': 2101.0}
+{'experiment': 'alpha_4', 'instance': 'medium_instance', 'alpha': [0.001, 6000], 'status': 2, 'objective': 863280.2939709334, 'runtime': 119.22899985313416, 'gap': 1.3485228684121279e-16, 'nodes': 71.0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
