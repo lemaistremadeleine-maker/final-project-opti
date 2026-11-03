@@ -198,32 +198,32 @@ def run_multiple_optimisation_runs_for_multiple_alpha(alpha_list):
         model_builder.params["alpha"] = list(alpha)
     
 
-def run_optimisation_model_2():
-    """fonction run pour calcul du pareto front"""
+# def run_optimisation_model_2():
+#     """fonction run pour calcul du pareto front"""
     
 
-    model_builder = OptiModel(
-        model_name="small_instance",
-        TIME_LIMIT=300
-    )
+#     model_builder = OptiModel(
+#         model_name="small_instance",
+#         TIME_LIMIT=300
+#     )
 
-        m, vars_ = model_builder.build()
-        m.optimize()
-        export_flows_csv(m, vars_)
-        export_pipeline_and_emissions_csv(m, vars_, model_builder.params)
+#     m, vars_ = model_builder.build()
+#     m.optimize()
+#     export_flows_csv(m, vars_)
+#     export_pipeline_and_emissions_csv(m, vars_, model_builder.params)
 
-        results.append({
-            "alpha": list(alpha),
-            "status": m.Status,
-            "objective": m.ObjVal if m.SolCount > 0 else None,
-            "runtime": m.Runtime,
-            "gap": m.MIPGap if m.SolCount > 0 else None,
-            "nodes": m.NodeCount,
-        })
+#     results.append({
+#         "alpha": list(alpha),
+#         "status": m.Status,
+#         "objective": m.ObjVal if m.SolCount > 0 else None,
+#         "runtime": m.Runtime,
+#         "gap": m.MIPGap if m.SolCount > 0 else None,
+#         "nodes": m.NodeCount,
+#     })
 
-        m.dispose()
+#     m.dispose()
 
-    return results
+#     return results
 
 
 def export_costs_and_emissions_csv(
